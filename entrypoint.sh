@@ -19,13 +19,13 @@ python manage.py makemigrations
 echo "APPLY DATABASE MIGRATIONS"
 python manage.py migrate
 
-if [ ${DEBUG} == True ]
-then
-    # Running Tests
-    echo "RUNING TESTS"
-    pytest
-    #TODO : stop database test after tests
-fi
+# if [ ${DEBUG} == True ]
+# then
+#     # Running Tests
+#     echo "RUNING TESTS"
+#     pytest
+#     #TODO : stop database test after tests
+# fi
 
 # Start server
 echo "STARTING SERVER"

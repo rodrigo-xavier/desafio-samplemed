@@ -9,6 +9,8 @@ __pycache__/
 Pipfile.lock
 temp/
 db/
+static/plugins/*
+samplemed/static/*
 
 # Ignore file/folders of tests
 htmlcov/

@@ -6,6 +6,7 @@
 * 
 
 > **_NOTE:_**  Podem haver outros requisitos não detectados, como gcc, g++, mysqlclient.
+> **_NOTE:_**  Cuidado ao utilizar no Windows, o projeto ocupará muito espaço e também muita memória RAM.
 
 ### **Configurações**
 
