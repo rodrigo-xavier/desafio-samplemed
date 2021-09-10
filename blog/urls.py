@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 from rest_framework import routers
 from django.conf.urls import include
 from blog.api import viewsets
@@ -9,6 +9,7 @@ app_name = 'blog'
 router = routers.DefaultRouter()
 router.register(r'article', viewsets.ArticleViewSet, basename='Article')
 router.register(r'user', viewsets.UserViewSet, basename='User')
+router.register(r'keyword', viewsets.KeywordViewSet, basename='Keyword')
 
 urlpatterns = [
     path('api/', include(router.urls), name='api'),

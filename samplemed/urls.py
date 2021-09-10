@@ -22,11 +22,11 @@ from django.conf.urls import include
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    # path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('', include('blog.urls', namespace="blog")),
     path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls, name="admin"),
-    # path('admin/', RedirectView.as_view(url='/admin'), name='super-user')
+    path('admin/', RedirectView.as_view(url='/admin'), name='super-user')
 ]
 
 if settings.DEBUG:

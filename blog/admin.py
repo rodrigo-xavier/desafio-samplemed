@@ -9,3 +9,7 @@ class UserAdmin(VersionAdmin):
 @admin.register(models.Article)
 class ArticleAdmin(VersionAdmin):
     pass
+
+@admin.register(models.Keyword)
+class KeywordAdmin(VersionAdmin):
+    pass

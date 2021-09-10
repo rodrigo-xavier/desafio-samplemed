@@ -9,6 +9,12 @@ class UserSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Article
-        fields = ['title', 'subtitle', 'article_type', 'content', 'status', 'keyword_set']
+        fields = ['title', 'subtitle', 'article_type', 'content', 'status', 'keyword']
+
+class KeywordSerializer(serializers.ModelSerializer):
+    article_title = serializers.CharField(source='article.title')
+    class Meta:
+        model = models.Keyword
+        fields = ['article_title', 'tag']
 
 
