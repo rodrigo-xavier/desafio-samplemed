@@ -33,7 +33,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     `UserViewSet` é uma viewset da `User` model.
     Permite a criação de novos usuários
-    `question`, `user_answer`, `correct_answer`
+    search_fields - `username`
     """
     permission_classes = [IsAuthenticatedOrReadOnly]
     authentication_classes = [TokenAuthentication]
@@ -43,17 +43,13 @@ class UserViewSet(viewsets.ModelViewSet):
     search_fields = ('username')
     queryset = models.User.objects.all()
 
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
-
-    def update(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
-
 class ArticleViewSet(viewsets.ModelViewSet):
     """
-    `QuestionViewSet` é uma viewset da `Question` model.
-    provê criação de novas Perguntas e permite que o Player responda a uma pergunta.
-    `question`, `user_answer`, `correct_answer`
+    `ArticleViewSet` é uma viewset da `Article` model.
+    permite a listagem de artigos, criação de novos artigos e a atualização de artigos existentes
+    search_fields - `title` `subtitle` `article_type` `status` `keyword_set`
+    methods: `create` valida se usuário não atingiu limite de artigos ou palavras chave e 
+                      adciona uma lista de strings de keywords na request para enviar ao serializer
     """
     permission_classes = [IsAuthenticatedOrReadOnly]
     authentication_classes = [TokenAuthentication]
@@ -73,23 +69,11 @@ class ArticleViewSet(viewsets.ModelViewSet):
         request.data['keywords'] = keywords
         
         return super().create(request, *args, **kwargs)
-    
-    def update(self, request, *args, **kwargs):
-        user = request.user
-
-        if user.article_set.count() >= 50 or len(request.data['keyword_set']) >= 7:
-            return Response({'error': 'Exceeded limit of articles per user or keywords per article.'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        keywords = [keyword.get('name') for keyword in request.data['keyword_set']]
-        request.data['keywords'] = keywords
-
-        return super().create(request, *args, **kwargs)
 
 class KeywordViewSet(viewsets.ModelViewSet):
     """
-    `QuestionViewSet` é uma viewset da `Question` model.
-    provê criação de novas Perguntas e permite que o Player responda a uma pergunta.
-    `question`, `user_answer`, `correct_answer`
+    `KeywordViewSet` é uma viewset da `Keyword` model.
+    permite listar, criar e atualizar keywords
     """
     permission_classes = [IsAuthenticatedOrReadOnly]
     authentication_classes = [TokenAuthentication]

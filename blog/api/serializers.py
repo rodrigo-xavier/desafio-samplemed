@@ -4,13 +4,9 @@ from blog.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     """
-    `QuestionViewSet` é uma viewset da `Question` model.
-    provê criação de novas Perguntas e permite que o Player responda a uma pergunta.
-    `question`, `user_answer`, `correct_answer`
+    `UserViewSet` é uma viewset da `User` model.
+    `usename`, `password`
     """
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
         
     class Meta:
         model = models.User
@@ -21,9 +17,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class KeywordSerializer(serializers.ModelSerializer):
     """
-    `QuestionViewSet` é uma viewset da `Question` model.
-    provê criação de novas Perguntas e permite que o Player responda a uma pergunta.
-    `question`, `user_answer`, `correct_answer`
+    `UserViewSet` é uma viewset da `User` model.
+    `name`
     """
     class Meta:
         model = models.Keyword
@@ -31,6 +26,9 @@ class KeywordSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     """
+    `ArticleViewSet` é uma viewset da `Article` model.
+    methods: `set_keywords` - cria se não existe e pega se existe, um objeto com uma keyword e adiciona 
+                              as keywords no artigo 
     observations: Foi necessário definir keyword_set como read_only, porque do contrário, a implementação
     causava conflitos com `unique=True` no atributo `name` de `Keywords`. Conflitos estes que possuem dificuldade
     acentuada para serem solucionados.
@@ -51,7 +49,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         return article
     class Meta:
         model = models.Article
-        fields = ['title', 'subtitle', 'article_type', 'content', 'status', 'keyword_set']
+        fields = ['id', 'title', 'subtitle', 'article_type', 'content', 'status', 'keyword_set']
 
 
 
