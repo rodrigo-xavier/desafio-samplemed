@@ -12,10 +12,26 @@ class KeywordSerializer(serializers.ModelSerializer):
         fields = ['name']
 
 class ArticleSerializer(serializers.ModelSerializer):
-    keyword_set = KeywordSerializer(many=True)
+    keyword_set = KeywordSerializer(many=True, read_only=True)
+
+    def set_keywords(self, article, keywords):
+        for k in keywords:
+            keyword = models.Keyword.objects.get_or_create(name=k)
+            article.keyword_set.add(keyword)
+    
+    def create(self, validated_data):
+        validated_data['author'] = self.context['request'].user
+        article = models.Article.objects.create(**validated_data)
+        keywords = self.context['request'].data['keywords']
+        self.set_keywords(article, keywords)
+
+        return super().create(validated_data)
+
+        # return article
     class Meta:
         model = models.Article
         fields = ['title', 'subtitle', 'article_type', 'content', 'status', 'keyword_set']
+
 
 
 

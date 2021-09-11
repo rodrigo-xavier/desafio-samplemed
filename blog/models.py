@@ -24,6 +24,10 @@ class Keyword(models.Model):
 
     def __str__(self):
         return str(self.name)
+    
+    @staticmethod
+    def list_keywords():
+        return Keyword.objects.values_list('name', flat=True)
 
 class Article(models.Model):
     TYPE = [
