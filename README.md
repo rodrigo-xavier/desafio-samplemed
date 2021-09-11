@@ -5,7 +5,6 @@
 * Docker
 * 
 
-> **_NOTE:_**  Podem haver outros requisitos não detectados, como gcc, g++, mysqlclient.
 > **_NOTE:_**  Cuidado ao utilizar no Windows, o projeto ocupará muito espaço e também muita memória RAM.
 
 ### **Configurações**
@@ -51,13 +50,25 @@ Se a variável `DEBUG` estiver definida como `True` no `.env`, a aplicação ir�
 
 ### **API**
 
-<!-- Todos os endpoints da aplicação estão disponíveis na rota `api/`.
+Todos os endpoints da aplicação estão disponíveis na rota `api/`.
 
-* api/quiz/
-* api/question/
-* api/answer/
-* api/user/
-* api/ranking/ -->
+#### Endpoints
+
+| API | METHOD | ENDPOINTS |
+| ------ | ------ |------ |
+| List of articles | GET | /api/ |
+| List of articles | GET | /api/article/ |
+| Article description | GET | /api/article/<id_category>/ |
+| New Article | POST | /api/article/ |
+| Change Article | PUT | /api/article/<id_category>/ |
+| List of users | GET | /api/user/ |
+| User description | GET | /api/user/<id_question>/ |
+| New User | POST | /api/user/ |
+| Change User | PUT | user/<id_category>/ |
+| List of keywords | GET | /api/keyword/ |
+| Keyword description | GET | /api/keyword/<id_question>/ |
+| New Keyword | POST | /api/keyword/ |
+| Change Keyword | PUT | /api/keyword/<id_question>/ |
 
 
 ## **Estruturação da aplicação**
@@ -67,24 +78,21 @@ Se a variável `DEBUG` estiver definida como `True` no `.env`, a aplicação ir�
 
 ### **tests**
 
-Ficam os testes unitários
+Onde ficam os testes unitários, o arquivo conftest define o banco de dados de teste
 
 ### **blog**
 
-<!-- Onde ficam as regras do jogo, as models e as apis do projeto. -->
+Onde estão definidos o modelos do blog.
 
+### **blog/api**
+
+Onde estão definidas as APIs, o serializer e o viewsets do blog.
 
 ## **Pontos à Melhorar**
 
 * Poderia ser implementado um sistema de permissões, onde um usuário de hierarquia mais alta faria review do artigo de outros usuários. Com isso, seria necessário implementar regras para alteração de status de cada artigo.
-
-<!-- * O código para atribuir permissões para os jogadores gerou redundâncias desnecessárias no viewset;
-* O mecanismo de atribuição de senhas de usuário só pode ser feito através de terminal ou menu admin (Porque o django faz encryptação da senha. Podem haver outras formas de se fazer isso);
-* Como requisitado no escopo do projeto, a aplicação não está retornando perguntas aleatórias;
-* Testes parecem não estar acessando banco de testes por algum raio de motivo;
-* Poderiam ser feitos mais testes unitários para a aplicação.
-* O relacionamento das models poderia ser melhor estruturado.
-* A `correct_answer` é definida antes de haver qualquer resposta salva. -->
+* Poderiam ter sido realizados mais testes unitários.
+* Testes parecem não estar acessando banco de testes por algum motivo (por isso eu troquei o banco de testes para o de produção.).
 
 
 # FICO À DISPOSIÇÃO PARA ESCLARECER DÚVIDAS SOBRE O PROJETO
