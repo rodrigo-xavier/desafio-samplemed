@@ -70,7 +70,10 @@ Todos os endpoints da aplicação estão disponíveis na rota `api/`.
 | New Keyword | POST | /api/keyword/ |
 | Change Keyword | PUT | /api/keyword/<id_question>/ |
 
+## Postman collection
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/17469376-7c639712-42ba-4cda-9c21-077aa9f5b1c9?action=collection%2Ffork&collection-url=entityId%3D17469376-7c639712-42ba-4cda-9c21-077aa9f5b1c9%26entityType%3Dcollection%26workspaceId%3D614b6ab9-829c-49df-b5bd-faa1de2b5cd4)
 
+[![View Postman Documentation](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/17469376/U16kr5Mh)
 ## **Estruturação da aplicação**
 ### **samplemed**
 
