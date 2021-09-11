@@ -76,6 +76,8 @@ Ficam os testes unitários
 
 ## **Pontos à Melhorar**
 
+* Poderia ser implementado um sistema de permissões, onde um usuário de hierarquia mais alta faria review do artigo de outros usuários. Com isso, seria necessário implementar regras para alteração de status de cada artigo.
+
 <!-- * O código para atribuir permissões para os jogadores gerou redundâncias desnecessárias no viewset;
 * O mecanismo de atribuição de senhas de usuário só pode ser feito através de terminal ou menu admin (Porque o django faz encryptação da senha. Podem haver outras formas de se fazer isso);
 * Como requisitado no escopo do projeto, a aplicação não está retornando perguntas aleatórias;

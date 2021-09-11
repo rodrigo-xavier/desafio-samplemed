@@ -3,11 +3,20 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from blog.api import serializers
 from rest_framework.filters import SearchFilter
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import status
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import authentication_classes
 
 class CustomerAccessPermission(permissions.BasePermission):
+    """
+    `CustomerAccessPermission` é uma viewset de `BasePermission`.
+    Permite criar autenticação personalizada para acesso dos usuários.
+    Não está sendo utilizado
+    """
+
     message = 'Adding customers not allowed.'
 
     def has_permission(self, request, view):
@@ -22,34 +31,42 @@ class CustomerAccessPermission(permissions.BasePermission):
 
 class UserViewSet(viewsets.ModelViewSet):
     """
-    `UserViewSet` é a viewset de `User` model.
+    `UserViewSet` é uma viewset da `User` model.
+    Permite a criação de novos usuários
+    `question`, `user_answer`, `correct_answer`
     """
-    # permission_classes = [CustomerAccessPermission]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    authentication_classes = [TokenAuthentication]
     serializer_class = serializers.UserSerializer
-    filter_backends =  (SearchFilter,)
+    filter_backends =  (SearchFilter, DjangoFilterBackend)
     filter_fields = ('id', 'username')
     search_fields = ('username')
     queryset = models.User.objects.all()
 
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
 class ArticleViewSet(viewsets.ModelViewSet):
     """
-    `ArticleViewSet` é uma viewset da `Article` model.
+    `QuestionViewSet` é uma viewset da `Question` model.
+    provê criação de novas Perguntas e permite que o Player responda a uma pergunta.
+    `question`, `user_answer`, `correct_answer`
     """
-    # permission_classes = [CustomerAccessPermission]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    authentication_classes = [TokenAuthentication]
     serializer_class = serializers.ArticleSerializer
     queryset = models.Article.objects.all()
-    filter_backends =  (SearchFilter,)
-    filter_fields = ('title', 'subtitle', 'article_type', 'status')
-    search_fields = ('title', 'subtitle', 'article_type', 'status')
-
+    filter_backends =  (SearchFilter, DjangoFilterBackend)
+    filter_fields = ('title', 'subtitle', 'article_type', 'status', 'keyword_set')
+    search_fields = ('title', 'subtitle', 'article_type', 'status', 'keyword_set')
 
     def create(self, request, *args, **kwargs):
-        
         user = request.user
 
-        if user.article_set.count() >= 20 or len(request.data['keyword_set']) >= 7:
+        if user.article_set.count() >= 50 or len(request.data['keyword_set']) >= 7:
             return Response({'error': 'Exceeded limit of articles per user or keywords per article.'}, status=status.HTTP_400_BAD_REQUEST)
 
         keywords = [keyword.get('name') for keyword in request.data['keyword_set']]
@@ -58,20 +75,24 @@ class ArticleViewSet(viewsets.ModelViewSet):
         return super().create(request, *args, **kwargs)
     
     def update(self, request, *args, **kwargs):
+        user = request.user
 
-        # if article.exceeded_limit():
-        #     return Response({'error': 'Exceeded limit of articles per user or keywords per article.'}, status=status.HTTP_400_BAD_REQUEST)
+        if user.article_set.count() >= 50 or len(request.data['keyword_set']) >= 7:
+            return Response({'error': 'Exceeded limit of articles per user or keywords per article.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        keywords = [keyword.get('name') for keyword in request.data['keyword_set']]
+        request.data['keywords'] = keywords
 
         return super().create(request, *args, **kwargs)
 
 class KeywordViewSet(viewsets.ModelViewSet):
     """
-    `KeywordViewSet` é uma viewset da `Keyword` model.
+    `QuestionViewSet` é uma viewset da `Question` model.
+    provê criação de novas Perguntas e permite que o Player responda a uma pergunta.
+    `question`, `user_answer`, `correct_answer`
     """
-    permission_classes = [CustomerAccessPermission]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    authentication_classes = [TokenAuthentication]
     serializer_class = serializers.KeywordSerializer
     queryset = models.Keyword.objects.all()
-    filter_backends =  (SearchFilter,)
-    filter_fields = ('name')
-    search_fields = ('name')
 

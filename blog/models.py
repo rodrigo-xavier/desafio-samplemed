@@ -20,6 +20,13 @@ class User(AbstractUser):
         ]
 
 class Keyword(models.Model):
+    """
+    `Keyword` model.
+    Funciona como uma tag dos conteúdos abordados por um artigo.
+    attributes: `name`
+    methods: `list_keywords`: Lista todas as keywords cadastradas
+    """
+    
     name = models.CharField(verbose_name=_("Keyword Set"), max_length=30, unique=True)
 
     def __str__(self):
@@ -30,6 +37,15 @@ class Keyword(models.Model):
         return Keyword.objects.values_list('name', flat=True)
 
 class Article(models.Model):
+    """
+    `QuestionViewSet` é uma viewset da `Question` model.
+    provê criação de novas Perguntas e permite que o Player responda a uma pergunta.
+    attributes: `author`, `published_date`, `title`, `subtitle`, `content`, `keyword_set`, 
+                `created_at`, `article_type`, `status`
+    methods: `publish`: Adiciona a data de publicação do artigo (Não está sendo utilizado)
+             `exceeded_limit`: Verifica se o usuário já atingiu o limite de artigos
+    """
+
     TYPE = [
         (0, _('Science')),
         (1, _('Technology')),
@@ -65,14 +81,9 @@ class Article(models.Model):
         self.save()
     
     def exceeded_limit(self):
-        return True if self.author.article_set.count() <= 20 else False
+        return True if self.author.article_set.count() >= 50 else False
     
     def clean(self, *args, **kwargs):
         if self.exceeded_limit():
             raise ValidationError(_("Exceeded limit of articles per user"))
         super(Article, self).clean(*args, **kwargs)
-
-    # def save(self, *args, **kwargs):
-    #     if self.exceeded_limit():
-    #         raise ValidationError(_("Exceeded Limit, cannot save!"))
-    #     super(Article, self).save(*args, **kwargs)
