@@ -1,0 +1,53 @@
+Table User {
+  id integer [primary key]
+  username charfield [note: 'Username do Usuário cadastrado']
+  email emailfield [note: 'Email do usuário']
+  first_name charfield [note: 'Primeiro nome do usuário']
+  last_name charfield [note: 'Último nome do usuário']
+  token tokenfield [note: 'Token de autenticação da API para o usuário']
+  created_date datetimefield [default: `timezone.now`, not null, note: 'Data de criação do usuário']
+  last_login datetimefield [default: `timezone.now`, not null, note: 'Último login do usuário']
+  superuser booleanfield [default: False, not null, note: 'Usuário administrador']
+  // password [note: 'difícil definir o tipo de senha, já que ela é criptografada']
+  
+  Note: 'Usuários'
+}
+
+Table Keyword {
+  id integer [primary key]
+  name charfield [unique, note: 'nome da Keyword']
+  
+  Note: 'palavras-chave de artigos'
+}
+
+Table Article {
+  id integer [primary key]
+  author integer [primary key, note: 'Autor do artigo']
+  keyword_set integer [primary key, note: 'Palavras-chave adicionadas ao artigo']
+  title charfield [default: '', unique, not null, note: 'Título do artigo']
+  subtitle charfield [note: 'Subtítulo do artigo']
+  content textfield [note: 'Conteúdo do artigo']
+  created_date datetimefield [default: `timezone.now`, not null, note: 'Data de criação do artigo']
+  published_date datetimefield [note: 'Data de publicação do artigo']
+  article_type positivesmallintegerfield [default: 0, not null, note: 'Tipo de artigo. Ex: Médico, Científico, Tecnologia']
+  status positivesmallintegerfield [default: 0, not null, note: 'Status do artigo. Ex: Criado, Em análise, Publicado']
+  
+  Note: 'Artigos'
+}
+
+Table Comments {
+  id integer [primary key]
+  user_id integer [primary key, note: 'Autor do comentário']
+  article_id integer [primary key, note: 'Artigo comentado']
+  comment textfield [note: 'Comentário do usuário']
+  status post_status [note: 'Status do comentário. Ex: Em análise, Postado, Rejeitado']
+  created_at datetimefield [default: `timezone.now`, not null, note: 'Data de criação do comentário']
+  published_at datetimefield [note: 'Data de publicação do comentário']
+  
+  Note: 'Comentários de usuários nos artigos'
+}
+
+Ref: Comments.user_id > User.id // many-to-one
+Ref: Comments.article_id > Article.id // many-to-many
+Ref: Article.author > User.id // many-to-one
+Ref: Article.keyword_set > Keyword.id // many-to-many

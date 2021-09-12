@@ -56,7 +56,6 @@ Todos os endpoints da aplicação estão disponíveis na rota `api/`.
 
 | API | METHOD | ENDPOINTS |
 | ------ | ------ |------ |
-| List of articles | GET | /api/ |
 | List of articles | GET | /api/article/ |
 | Article description | GET | /api/article/<id_category>/ |
 | New Article | POST | /api/article/ |
@@ -90,6 +89,16 @@ Onde estão definidos o modelos do blog.
 ### **blog/api**
 
 Onde estão definidas as APIs, o serializer e o viewsets do blog.
+
+### **decisions.txt**
+
+Neste arquivo estão definidas as respostas para as tomadas de decisão e codificação do projeto
+
+### **DBML.txt**
+
+Onde estão as regras para geração de tabela de classes no formato DBML
+
+[![Open in dbdiagram.io](https://img.icons8.com/office/16/000000/database.png)](https://dbdiagram.io/d/613e3a49825b5b0146fe4519)
 
 ## **Pontos à Melhorar**
 

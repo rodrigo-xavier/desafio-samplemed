@@ -1,0 +1,25 @@
+● Resiliência: O que fazer para mitigar possíveis erros e controlar os possíveis erros recebidos da API?
+
+R: Sempre tentar cobrir a aplicação de testes, fazer um loop de tentativas na requisição de informações, utilizar ferramentas de log e manter logs de no mínimo as seguintes informações:
+
+    * URL da requisição (com o caminho completo);
+    * Cabeçalhos da requisição;
+    * Parâmetros de dados da requisição (atenção para diferenciar maiúsculas de minúsculas como nos tokens de acesso);
+    * Parâmetros de autenticação http;
+    * O texto de resposta;
+
+Enviar emails automáticos para os administradores do sistema com o log de erros. Rastrear e monitorar o atraso no tempo das respostas
+
+● Performance: Quais boas práticas são aplicadas em banco de dados e no código para garantir
+performance?
+
+R: Organização e padronização, documentação, modularizar a aplicação e buscar sempre desenvolver códigos com menor ordem de complexidade dadas n requisições. Buscar utilizar o ORM do django para gerenciar o banco de dados ao invés de acessa-lo diretamente.
+
+● Segurança: Como garantir segurança para as APIs do sistema?
+
+R: Fazer uma autenticação autorização robustas, utilizar protocolos de comunicação mais seguros, HTTPS, proteger os endpoints, limitar a taxa de requisições, expor apenas os dados necessários e não expor dados sensíveis, permitir que os usuários redefinam suas credenciais de acesso. E utilizar ferramentas de monitoração de APIs como Kong Manager. Evitar desenvolver APIs fora da padronização definida.
+
+● Simultaneidade: Como trabalhar com simultaneidade se milhares de requisições forem solicitadas
+simultaneamente?
+
+R: Fazer limitações de requisição tanto por usuários, por serviços e geográficas.

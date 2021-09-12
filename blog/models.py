@@ -9,6 +9,7 @@ class User(AbstractUser):
     """ 
     Observations: Em um projeto maior, o indicado seria criar um app apenas
     para o tratamento de usuários e grupos do sistema
+    Não está sendo utilizado
     """
 
     def __str__(self):
