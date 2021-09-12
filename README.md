@@ -98,13 +98,14 @@ Neste arquivo estão definidas as respostas para as tomadas de decisão e codifi
 
 Onde estão as regras para geração de tabela de classes no formato DBML
 
+Clique na imagem:
 [![Open in dbdiagram.io](https://img.icons8.com/office/16/000000/database.png)](https://dbdiagram.io/d/613e3a49825b5b0146fe4519)
 
-## **Pontos à Melhorar**
+## **Pontos a Melhorar**
 
 * Poderia ser implementado um sistema de permissões, onde um usuário de hierarquia mais alta faria review do artigo de outros usuários. Com isso, seria necessário implementar regras para alteração de status de cada artigo.
 * Poderiam ter sido realizados mais testes unitários.
 * Testes parecem não estar acessando banco de testes por algum motivo (por isso eu troquei o banco de testes para o de produção.).
 
 
-#### FICO À DISPOSIÇÃO PARA ESCLARECER DÚVIDAS SOBRE O PROJETO
+#### ESTOU À DISPOSIÇÃO PARA ESCLARECER DÚVIDAS SOBRE O PROJETO
